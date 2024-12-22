@@ -12,7 +12,7 @@ router.get('/', authenticateToken,userController.getUsers);
 router.get('/:id', authenticateToken,userController.getUserById);
 
 // auth routes
-router.post('/login', loginController.userLogin);
-router.post('/register', loginController.userRegister);
+router.post('/login', loginController.loginUser);
+router.post('/register', loginController.registerUser);
 
 module.exports = router;

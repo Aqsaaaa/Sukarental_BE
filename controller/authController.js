@@ -1,8 +1,8 @@
-const userModel = require('../models/authModel.js');
+const authModel = require('../models/authModel.js');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET;
 
-const userRegister = async (req, res) => {
+const registerUser = async (req, res) => {
     const { name, email, password, phone, role_id } = req.body;
 
     if (!name || !email || !password || !phone) {
@@ -13,6 +13,7 @@ const userRegister = async (req, res) => {
     }
 
     try {
+        await authModel.registerUser(name, email, password, phone, role_id);
         res.status(201).json({
             status: 'success',
             message: 'User registered successfully'
@@ -25,7 +26,7 @@ const userRegister = async (req, res) => {
     }
 };
 
-const userLogin = async (req, res) => {
+const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -36,7 +37,7 @@ const userLogin = async (req, res) => {
     }
 
     try {
-        const { user, isMatch } = await userModel.loginUser(email, password);
+        const { user, isMatch } = await authModel.loginUser(email, password);
 
         if (!user || !isMatch) {
             return res.status(401).json({
@@ -60,6 +61,7 @@ const userLogin = async (req, res) => {
 };
 
 module.exports = {
-    userRegister,
-    userLogin,
+    registerUser,
+    loginUser,
 };
+
