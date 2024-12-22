@@ -1,7 +1,6 @@
 const {Router} = require('express');
 const userController = require('../controller/userController');
-const loginController = require('../controller/authController');
-
+const authController = require('../controller/authController');
 const { authenticateToken } = require('../middlewares/authMiddleware');
 
 
@@ -11,8 +10,8 @@ const router = Router();
 router.get('/', authenticateToken,userController.getUsers);
 router.get('/:id', authenticateToken,userController.getUserById);
 
-// auth routes
-router.post('/login', loginController.userLogin);
-router.post('/register', loginController.userRegister);
+// auth routes login / register
+router.post('/login', authController.userLogin);
+router.post('/register', authController.userRegister);
 
 module.exports = router;

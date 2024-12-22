@@ -1,9 +1,15 @@
-const userModel = require('../models/authModel.js');
+const authModel = require('../models/authModel.js');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET;
+const bcrypt = require("bcrypt");
+const pool = require('../config/db.js');
+const queries = require('../queries/queries');
+
+
 
 const userRegister = async (req, res) => {
-    const { name, email, password, phone, role_id } = req.body;
+    const saltRounds = 10;
+    const { name, email, password, phone, role_id = 2 } = req.body;
 
     if (!name || !email || !password || !phone) {
         return res.status(400).json({
@@ -11,12 +17,16 @@ const userRegister = async (req, res) => {
             message: 'All fields are required'
         });
     }
-
     try {
+
         res.status(201).json({
             status: 'success',
             message: 'User registered successfully'
         });
+        // const hash = await bcrypt.hash(password, saltRounds);
+        // const result = await pool.query(queries.userRegister, [name, email, hash, phone, role_id]);
+        // return result.rows[0];
+
     } catch (err) {
         res.status(500).json({
             status: 'error',
@@ -36,7 +46,7 @@ const userLogin = async (req, res) => {
     }
 
     try {
-        const { user, isMatch } = await userModel.loginUser(email, password);
+        const { user, isMatch } = await authModel.loginUser(email, password);
 
         if (!user || !isMatch) {
             return res.status(401).json({
