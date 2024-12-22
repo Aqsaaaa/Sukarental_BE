@@ -9,7 +9,7 @@ const queries = require('../queries/queries');
 
 const userRegister = async (req, res) => {
     const saltRounds = 10;
-    const { name, email, password, phone, role_id = 2 } = req.body;
+    const { name, email, password, phone, role_id = 2 } = req.body
 
     if (!name || !email || !password || !phone) {
         return res.status(400).json({
@@ -18,6 +18,10 @@ const userRegister = async (req, res) => {
         });
     }
     try {
+
+
+
+        await authModel.registerUser(name, email, password, phone, role_id);
 
         res.status(201).json({
             status: 'success',
@@ -35,7 +39,7 @@ const userRegister = async (req, res) => {
     }
 };
 
-const userLogin = async (req, res) => {
+const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -70,6 +74,7 @@ const userLogin = async (req, res) => {
 };
 
 module.exports = {
-    userRegister,
-    userLogin,
+    registerUser,
+    loginUser,
 };
+

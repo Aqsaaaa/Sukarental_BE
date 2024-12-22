@@ -10,8 +10,8 @@ const router = Router();
 router.get('/', authenticateToken,userController.getUsers);
 router.get('/:id', authenticateToken,userController.getUserById);
 
-// auth routes login / register
-router.post('/login', authController.userLogin);
-router.post('/register', authController.userRegister);
+// auth routes
+router.post('/login', loginController.loginUser);
+router.post('/register', loginController.registerUser);
 
 module.exports = router;
