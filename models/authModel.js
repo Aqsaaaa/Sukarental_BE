@@ -2,10 +2,9 @@ const pool = require('../config/db');
 const bcrypt = require('bcrypt');
 const queries = require('../queries/queries');
 
+const saltRounds = 10;
 
-// id user 2
 const registerUser = async (name, email, password, phone, role_id = 2) => {
-    const saltRounds = process.env.SALT_ROUNDS;
     try {
         const hash = await bcrypt.hash(password, saltRounds);
         const result = await pool.query(queries.userRegister, [name, email, hash, phone, role_id]);
@@ -36,4 +35,3 @@ module.exports = {
     registerUser,
     loginUser,
 };
-

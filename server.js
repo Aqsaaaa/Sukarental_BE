@@ -1,11 +1,10 @@
 const express = require('express');
 const Routes = require('./routes/routes');
-
 // const { authenticateToken } = require('../middleware/authMiddleware');
 
 
 const app = express();
-const port = process.env.APP_PORT;
+const port = 3000;
 
 app.use(express.json());
 
