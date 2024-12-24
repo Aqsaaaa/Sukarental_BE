@@ -14,7 +14,7 @@ const registerUser = async (name, email, password, phone, role_id = 2) => {
     }
 };
 
-const updateUser = async (name, email, phone, user_id, password) => {
+const updateUser = async ( user_id, name, email, phone, password) => {
     try {
         const hash = await bcrypt.hash(password, saltRounds);
         const result = await pool.query(queries.updateUser, [name, email, phone, hash, user_id]);
@@ -23,6 +23,7 @@ const updateUser = async (name, email, phone, user_id, password) => {
         throw new Error('Database query error: ' + err.message);
     }
 };
+
 
 const loginUser = async (email, password) => {
     try {

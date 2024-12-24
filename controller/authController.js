@@ -1,5 +1,6 @@
 const authModel = require('../models/authModel.js');
 const jwt = require('jsonwebtoken');
+const { userUpdate } = require('../queries/queries.js');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const registerUser = async (req, res) => {
@@ -27,7 +28,7 @@ const registerUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-    const { name, email, phone, password } = req.body;
+    const { name, email, phone, password} = req.body;
     const id = req.params.id;
 
     if (!id || !name || !email || !phone || !password) {
@@ -50,6 +51,7 @@ const updateUser = async (req, res) => {
         });
     }
 };
+
 
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
