@@ -14,5 +14,6 @@ router.get('/:id', authenticateToken,userController.getUserById);
 // auth routes
 router.post('/login', loginController.loginUser);
 router.post('/register', loginController.registerUser);
+router.put('/update/:id', authenticateToken, loginController.updateUser);
 
 module.exports = router;

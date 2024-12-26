@@ -1,6 +1,7 @@
 const authModel = require('../models/authModel.js');
 const jwt = require('jsonwebtoken');
 const { userUpdate } = require('../queries/queries.js');
+const { userUpdate } = require('../queries/queries.js');
 const JWT_SECRET = process.env.JWT_SECRET;
 const multer = require('multer');
 const upload = multer();
@@ -104,6 +105,7 @@ const loginUser = async (req, res) => {
 module.exports = {
     registerUser,
     loginUser,
+    updateUser,
     updateUser,
 };
 
